@@ -10,5 +10,6 @@ public interface IDietaService {
     void update(Dieta d);
     void delete(int idDieta);
     public List<String[]> cantidadDietas();
+    public List<String[]> duraciontotaldietas();
 
 }

@@ -44,7 +44,10 @@ public class DietaServiceImplement implements IDietaService {
         return dR.cantidadDietas();
     }
 
-
+    @Override
+    public List<String[]> duraciontotaldietas() {
+        return dR.duraciontotaldietas();
+    }
 
 
 }
