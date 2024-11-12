@@ -47,7 +47,8 @@ public class ControlServiceImplement implements IControlService {
     public List<Control> filtrarPorFecha(Date fecha) {
         return cR.filtrarPorFecha(fecha);
     }
-
+    @Autowired
+    private IUsuariosRepository uR;
     @Override
     public Control obtenerUltimoControlPorNombreUsuario(String nombre) {
         Usuarios usuario = uR.findByNombre(nombre);
@@ -57,6 +58,16 @@ public class ControlServiceImplement implements IControlService {
         }
         return new Control();
     }
-    @Autowired
-    private IUsuariosRepository uR;
+
+    @Override
+    public List<String[]> getControlesPorDieta() {
+        return cR.getControlesPorDieta();
+    }
+
+    @Override
+    public List<String[]> getControlesPorGenero() {
+        return cR.getControlesPorGenero();
+    }
+
+
 }

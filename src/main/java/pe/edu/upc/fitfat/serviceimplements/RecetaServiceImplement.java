@@ -63,4 +63,15 @@ public class RecetaServiceImplement implements IRecetaService {
     public List<Receta> searchRecetasByNombreAndUsuario(String nombre, int idUsuario) {
         return rR.findRecetasByNombreAndUsuario(nombre, idUsuario);
     }
+
+    @Override
+    public List<String[]> countRecetasByComida() {
+        return rR.countRecetasByComida();
+    }
+
+    @Override
+    public List<String[]> sumDescripcionLengthByComida() {
+        return rR.sumDescripcionLengthByComida();
+    }
+
 }

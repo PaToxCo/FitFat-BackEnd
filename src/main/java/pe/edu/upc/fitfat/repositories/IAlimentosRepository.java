@@ -15,4 +15,15 @@ public interface IAlimentosRepository extends JpaRepository<Alimentos, Integer> 
     List<Alimentos> findByUsuarioId(int usuarioId);
     @Query("SELECT a FROM Alimentos a WHERE a.nombre LIKE %:nombre% AND a.receta.idReceta IN (SELECT r.idReceta FROM Receta r JOIN r.comida c WHERE c.usuario.id = :idUsuario)")
     List<Alimentos> findAlimentosByNombreAndUsuario(@Param("nombre") String nombre, @Param("idUsuario") int idUsuario);
+    @Query(value = "SELECT dieta.nombre AS dieta, COUNT(a.id_alimentos) AS totalAlimentos " +
+            "FROM Alimentos a " +
+            "JOIN Dieta dieta ON a.dieta_id_dieta = dieta.id_dieta " +
+            "GROUP BY dieta.nombre", nativeQuery = true)
+    List<String[]> countAlimentosByDieta();
+
+    @Query(value = "SELECT dieta.nombre AS dieta, SUM(a.calorias) AS totalCalorias " +
+            "FROM Alimentos a " +
+            "JOIN Dieta dieta ON a.dieta_id_dieta = dieta.id_dieta " +
+            "GROUP BY dieta.nombre", nativeQuery = true)
+    List<String[]> sumCaloriasByDieta();
 }

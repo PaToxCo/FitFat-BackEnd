@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.ControlDTO;
+import pe.edu.upc.fitfat.dtos.ControlesPorDietaDTO;
+import pe.edu.upc.fitfat.dtos.ControlesPorGeneroDTO;
 import pe.edu.upc.fitfat.entities.Control;
 import pe.edu.upc.fitfat.serviceinterfaces.IControlService;
 
@@ -67,5 +69,26 @@ public class ControlController {
             return m.map(control, ControlDTO.class);
         }
         return null; // O lanzar una excepción según tu preferencia
+    }
+    @GetMapping("/controlesPorDieta")
+    public List<ControlesPorDietaDTO> obtenerControlesPorDieta() {
+        List<String[]> lista = cS.getControlesPorDieta();
+        return lista.stream().map(columna -> {
+            ControlesPorDietaDTO dto = new ControlesPorDietaDTO();
+            dto.setIdDieta(Integer.parseInt(columna[0]));
+            dto.setTotalControles(Long.parseLong(columna[1]));
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @GetMapping("/controlesPorGenero")
+    public List<ControlesPorGeneroDTO> obtenerControlesPorGenero() {
+        List<String[]> lista = cS.getControlesPorGenero();
+        return lista.stream().map(columna -> {
+            ControlesPorGeneroDTO dto = new ControlesPorGeneroDTO();
+            dto.setGenero(columna[0]);
+            dto.setTotalControles(Long.parseLong(columna[1]));
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

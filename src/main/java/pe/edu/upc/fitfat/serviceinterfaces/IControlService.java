@@ -12,4 +12,6 @@ public interface IControlService {
     void delete(int id);
     List<Control> filtrarPorFecha(Date fecha);
     Control obtenerUltimoControlPorNombreUsuario(String nombre);
+    List<String[]> getControlesPorDieta();
+    List<String[]> getControlesPorGenero();
 }

@@ -4,9 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.AlimentosDTO;
+import pe.edu.upc.fitfat.dtos.TotalAlimentosDTO;
+import pe.edu.upc.fitfat.dtos.TotalCaloriasDTO;
 import pe.edu.upc.fitfat.entities.Alimentos;
 import pe.edu.upc.fitfat.serviceinterfaces.IAlimentosService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,4 +64,30 @@ public class AlimentosController {
     public List<Alimentos> searchAlimentos(@RequestParam("nombre") String nombre, @RequestParam("usuarioId") int usuarioId) {
         return aS.findAlimentosByNombreAndUsuario(nombre, usuarioId);
     }
+    @GetMapping("/total-alimentos")
+    public List<TotalAlimentosDTO> totalAlimentos() {
+        List<String[]> lista = aS.countAlimentosByDieta();
+        List<TotalAlimentosDTO> listaDTO = new ArrayList<>();
+        for (String[] columna : lista) {
+            TotalAlimentosDTO dto = new TotalAlimentosDTO();
+            dto.setDieta(columna[0]);
+            dto.setTotalAlimentos(Long.parseLong(columna[1]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
+    @GetMapping("/total-calorias")
+    public List<TotalCaloriasDTO> totalCalorias() {
+        List<String[]> lista = aS.sumCaloriasByDieta();
+        List<TotalCaloriasDTO> listaDTO = new ArrayList<>();
+        for (String[] columna : lista) {
+            TotalCaloriasDTO dto = new TotalCaloriasDTO();
+            dto.setDieta(columna[0]);
+            dto.setTotalCalorias(Long.parseLong(columna[1]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
 }

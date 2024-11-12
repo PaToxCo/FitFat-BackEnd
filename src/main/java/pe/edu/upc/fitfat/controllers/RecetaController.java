@@ -3,10 +3,13 @@ package pe.edu.upc.fitfat.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.fitfat.dtos.DescripcionLengthDTO;
+import pe.edu.upc.fitfat.dtos.RecetaCountDTO;
 import pe.edu.upc.fitfat.dtos.RecetaDTO;
 import pe.edu.upc.fitfat.entities.Receta;
 import pe.edu.upc.fitfat.serviceinterfaces.IRecetaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,4 +60,34 @@ public class RecetaController {
             return m.map(x, RecetaDTO.class);
         }).collect(Collectors.toList());
     }
+    @GetMapping("/countByComida")
+    public List<RecetaCountDTO> countRecetasByComida() {
+        List<String[]> lista = rS.countRecetasByComida();
+        List<RecetaCountDTO> listaDTO = new ArrayList<>();
+
+        for (String[] columna : lista) {
+            RecetaCountDTO dto = new RecetaCountDTO();
+            dto.setComidaId(columna[0]);
+            dto.setTotalRecetas(Long.parseLong(columna[1]));
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+    @GetMapping("/sumDescripcionLengthByComida")
+    public List<DescripcionLengthDTO> sumDescripcionLengthByComida() {
+        List<String[]> lista = rS.sumDescripcionLengthByComida();
+        List<DescripcionLengthDTO> listaDTO = new ArrayList<>();
+
+        for (String[] columna : lista) {
+            DescripcionLengthDTO dto = new DescripcionLengthDTO();
+            dto.setComidaId(columna[0]);
+            dto.setTotalDescripcionLength(Long.parseLong(columna[1]));
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
 }
