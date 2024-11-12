@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.DietaDTO;
 import pe.edu.upc.fitfat.dtos.DietasPorUsuarioDTO;
-import pe.edu.upc.fitfat.dtos.DuracionTotalDietasDTO;
 import pe.edu.upc.fitfat.entities.Dieta;
 import pe.edu.upc.fitfat.serviceinterfaces.IDietaService;
 
@@ -62,14 +61,5 @@ public class DietaController {
             return dto;
         }).collect(Collectors.toList());
     }
-    @GetMapping("/totalduration")
-    public List<DuracionTotalDietasDTO> duracionTotalDietas() {
-        List<String[]> duraciontotaldietas = dS.duraciontotaldietas();
-        return duraciontotaldietas.stream().map(y -> {
-            DuracionTotalDietasDTO dto = new DuracionTotalDietasDTO();
-            dto.setId_usuario(Integer.parseInt(y[0]));
-            dto.setDuracion(Integer.parseInt(y[1]));
-            return dto;
-        }).collect(Collectors.toList());
-    }
+
 }
