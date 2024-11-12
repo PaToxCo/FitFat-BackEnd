@@ -18,4 +18,7 @@ public interface ITipo_comidaRepository extends JpaRepository<Tipo_comida, Integ
             "ORDER BY frecuencia DESC")
     List<Object[]> findMostFrequentTipoComidaByUsuarioId(@Param("usuarioId") int usuarioId);
     List<Tipo_comida> findByCategoria(String categoria);
+    @Query("SELECT tc.categoria, COUNT(tc) AS cantidad FROM Tipo_comida tc GROUP BY tc.categoria")
+    List<String[]> contarTiposPorCategoria();
+
 }

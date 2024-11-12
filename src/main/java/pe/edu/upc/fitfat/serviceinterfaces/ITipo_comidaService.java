@@ -12,4 +12,5 @@ public interface ITipo_comidaService {
     public void delete(int id);
     public List<Object[]> findMostFrequentTipoComidaByUsuarioId(int usuarioId);
     public List<Tipo_comida> filterByCategory(String category);
+    public List<String[]> contarTiposPorCategoria();
 }

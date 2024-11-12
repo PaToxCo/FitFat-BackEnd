@@ -45,4 +45,10 @@ public class Tipo_comidaServiceImplement implements ITipo_comidaService {
     public List<Tipo_comida> filterByCategory(String categoria) {
         return tR.findByCategoria(categoria);
     }
+
+    @Override
+    public List<String[]> contarTiposPorCategoria() {
+        return tR.contarTiposPorCategoria();
+    }
+
 }

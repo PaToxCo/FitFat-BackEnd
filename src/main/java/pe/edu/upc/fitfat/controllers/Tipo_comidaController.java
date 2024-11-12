@@ -3,6 +3,7 @@ package pe.edu.upc.fitfat.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.fitfat.dtos.ContarTiposPorCategoriaDTO;
 import pe.edu.upc.fitfat.dtos.Tipo_comidaDTO;
 import pe.edu.upc.fitfat.entities.Tipo_comida;
 import pe.edu.upc.fitfat.serviceinterfaces.ITipo_comidaService;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,4 +65,17 @@ public class Tipo_comidaController {
     public List<Tipo_comida> filterByCategory(@RequestParam("categoria") String categoria) {
         return tCS.filterByCategory(categoria);
     }
+    @GetMapping("/contar-por-categoria")
+    public List<ContarTiposPorCategoriaDTO> contarTiposPorCategoria() {
+        List<String[]> resultados = tCS.contarTiposPorCategoria();
+        List<ContarTiposPorCategoriaDTO> listaDTO = new ArrayList<>();
+        for (String[] columna : resultados) {
+            ContarTiposPorCategoriaDTO dto = new ContarTiposPorCategoriaDTO();
+            dto.setCategoria(columna[0]);
+            dto.setCantidad(Long.parseLong(columna[1]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
 }
