@@ -15,4 +15,10 @@ public interface IDietaRepository extends JpaRepository<Dieta, Integer> {
             "GROUP BY id_usuario \n" +
             "ORDER BY cantidad_dietas DESC;", nativeQuery = true)
     public List<String[]> cantidadDietas();
+
+    @Query(value = "SELECT id_usuario, SUM(duracion) AS duracion_total_usuario \n" +
+            "FROM Dieta \n" +
+            "GROUP BY id_usuario \n" +
+            "ORDER BY duracion_total_usuario DESC;", nativeQuery = true)
+    public List<String[]> duraciontotaldietas();
 }
