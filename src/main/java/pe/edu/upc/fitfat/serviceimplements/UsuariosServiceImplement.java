@@ -49,9 +49,11 @@ public class UsuariosServiceImplement implements IUsuariosService {
         return uR.findOneByUsuario(usuario);
     }
 
+    @Override
     public List<String[]> contarUsuariosActivosInactivos() {
         return uR.contarUsuariosActivosInactivos();
     }
+    @Override
     public List<UsuariosPorRolDTO> obtenerUsuariosPorRol() {
         return uR.contarUsuariosPorRol();
     }

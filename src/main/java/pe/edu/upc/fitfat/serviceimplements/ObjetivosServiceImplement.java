@@ -48,5 +48,14 @@ public class ObjetivosServiceImplement implements IObjetivosService {
         return oR.buscarPorTipoObjetivo(objetivo);
     }
 
+    @Override
+    public List<String[]> obtenerFechasPorEstado() {
+        return oR.obtenerFechasPorEstado();
+    }
+
+    @Override
+    public List<String[]> obtenerDuracionPorTipoObjetivo() {
+        return oR.obtenerDuracionPorTipoObjetivo();
+    }
 
 }

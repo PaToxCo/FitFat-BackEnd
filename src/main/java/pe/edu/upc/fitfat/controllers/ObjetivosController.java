@@ -3,10 +3,14 @@ package pe.edu.upc.fitfat.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.fitfat.dtos.DuracionObjetivosPorTipoDTO;
+import pe.edu.upc.fitfat.dtos.FechasObjetivosPorEstadoDTO;
 import pe.edu.upc.fitfat.dtos.ObjetivosDTO;
 import pe.edu.upc.fitfat.entities.Objetivos;
 import pe.edu.upc.fitfat.serviceinterfaces.IObjetivosService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,5 +68,36 @@ public class ObjetivosController {
             ModelMapper m = new ModelMapper();
             return m.map(x, ObjetivosDTO.class);
         }).collect(Collectors.toList());
+    }
+
+    @GetMapping("/fechas-por-estado")
+    public List<FechasObjetivosPorEstadoDTO> obtenerFechasPorEstado() {
+        List<String[]> lista = oS.obtenerFechasPorEstado();
+        List<FechasObjetivosPorEstadoDTO> listaDTO = new ArrayList<>();
+        for (String[] columna : lista) {
+            FechasObjetivosPorEstadoDTO dto = new FechasObjetivosPorEstadoDTO();
+            dto.setEstado(columna[0]);
+            dto.setFecha_inicio_min(LocalDate.parse(columna[1]));
+            dto.setFecha_inicio_max(LocalDate.parse(columna[2]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
+    @GetMapping("/duracion-por-tipo")
+    public List<DuracionObjetivosPorTipoDTO> obtenerDuracionPorTipoObjetivo() {
+        List<String[]> lista = oS.obtenerDuracionPorTipoObjetivo();
+        List<DuracionObjetivosPorTipoDTO> listaDTO = new ArrayList<>();
+        for (String[] columna : lista) {
+            DuracionObjetivosPorTipoDTO dto = new DuracionObjetivosPorTipoDTO();
+            dto.setTipo_objetivo(columna[0]);
+            try {
+                dto.setDuracion_total(Long.parseLong(columna[1]));
+            } catch (NumberFormatException e) {
+                dto.setDuracion_total(0L);  // Manejar valores que no se pueden convertir
+            }
+            listaDTO.add(dto);
+        }
+        return listaDTO;
     }
 }
