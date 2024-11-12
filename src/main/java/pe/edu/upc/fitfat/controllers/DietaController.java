@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.DietaDTO;
+import pe.edu.upc.fitfat.dtos.DietasPorUsuarioDTO;
 import pe.edu.upc.fitfat.entities.Dieta;
 import pe.edu.upc.fitfat.serviceinterfaces.IDietaService;
 
@@ -49,11 +50,15 @@ public class DietaController {
     public void eliminar(@PathVariable("id") Integer id) {
         dS.delete(id);
     }
-    @GetMapping("/buscarPorNombre")
-    public List<DietaDTO> buscardietapornombre(@RequestParam("nombre") String nombre) {
-        return dS.buscardietapornombre(nombre).stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, DietaDTO.class);
+
+    @GetMapping("/quantitydiet")
+    public List<DietasPorUsuarioDTO> listarCantidadeDieta() {
+        List<String[]> cantidadDietas = dS.cantidadDietas();
+        return cantidadDietas.stream().map(y -> {
+            DietasPorUsuarioDTO dto = new DietasPorUsuarioDTO();
+            dto.setIdUsuario(Integer.parseInt(y[0]));
+            dto.setCantidad_dietas(Integer.parseInt(y[1]));
+            return dto;
         }).collect(Collectors.toList());
     }
 }

@@ -10,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface IDietaRepository extends JpaRepository<Dieta, Integer> {
-    @Query("select d from Dieta d where d.nombre like %:nombre%")
-    public List<Dieta> buscarxnombre(@Param("nombre") String nombre);
+    @Query(value = "SELECT id_usuario, COUNT(*) AS cantidad_dietas \n" +
+            "FROM Dieta \n" +
+            "GROUP BY id_usuario \n" +
+            "ORDER BY cantidad_dietas DESC;", nativeQuery = true)
+    public List<String[]> cantidadDietas();
 }

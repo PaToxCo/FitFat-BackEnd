@@ -40,8 +40,9 @@ public class DietaServiceImplement implements IDietaService {
     }
 
     @Override
-    public List<Dieta> buscardietapornombre(String nombre) {
-        return dR.buscarxnombre(nombre);
+    public List<String[]> cantidadDietas() {
+        return dR.cantidadDietas();
     }
+
 
 }

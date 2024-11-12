@@ -9,5 +9,5 @@ public interface IDietaService {
     Dieta listId(int idDieta);
     void update(Dieta d);
     void delete(int idDieta);
-    List<Dieta> buscardietapornombre(String nombre);
+    public List<String[]> cantidadDietas();
 }
