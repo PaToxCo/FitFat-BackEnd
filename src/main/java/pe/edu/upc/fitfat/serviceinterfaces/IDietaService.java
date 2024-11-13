@@ -9,7 +9,7 @@ public interface IDietaService {
     Dieta listId(int idDieta);
     void update(Dieta d);
     void delete(int idDieta);
-    public List<String[]> cantidadDietas();
-    public List<String[]> duraciontotaldietas();
+    List<String[]> cantidadDietas();
+    List<String[]> duraciontotaldietas();
 
 }

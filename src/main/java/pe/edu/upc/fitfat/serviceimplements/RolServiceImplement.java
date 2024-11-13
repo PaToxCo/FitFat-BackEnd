@@ -38,4 +38,9 @@ public class RolServiceImplement implements IRolService {
     public void delete(int id) {
         rR.deleteById(id);
     }
+
+    @Override
+    public List<String[]> listarolesactivos() {
+        return rR.listarolesactivos();
+    }
 }
