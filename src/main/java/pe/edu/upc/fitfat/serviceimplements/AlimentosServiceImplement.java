@@ -47,4 +47,20 @@ public class AlimentosServiceImplement implements IAlimentosService {
     public List<Alimentos> findAlimentosByNombreAndUsuario(String nombre, int idUsuario) {
         return alimentosRepository.findAlimentosByNombreAndUsuario(nombre, idUsuario);
     }
+
+    @Override
+    public List<String[]> caloriasByAlimentos() {
+        return alimentosRepository.caloriasByAlimentos ();
+    }
+
+    @Override
+    public List<String[]> grasasByAlimentos() {
+        return alimentosRepository.grasasByAlimentos ();
+    }
+
+    @Override
+    public List<String[]> carbohidratosByAlimentos() {
+        return alimentosRepository.carbohidratosByAlimentos ();
+    }
+
 }

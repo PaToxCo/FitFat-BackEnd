@@ -15,4 +15,18 @@ public interface IAlimentosRepository extends JpaRepository<Alimentos, Integer> 
     List<Alimentos> findByUsuarioId(int usuarioId);
     @Query("SELECT a FROM Alimentos a WHERE a.nombre LIKE %:nombre% AND a.receta.idReceta IN (SELECT r.idReceta FROM Receta r JOIN r.comida c WHERE c.usuario.id = :idUsuario)")
     List<Alimentos> findAlimentosByNombreAndUsuario(@Param("nombre") String nombre, @Param("idUsuario") int idUsuario);
+    @Query(value = "SELECT nombre, calorias\n" +
+            "FROM Alimentos\n" +
+            "ORDER BY calorias DESC;", nativeQuery = true)
+    public List<String[]> caloriasByAlimentos();
+
+    @Query(value = "SELECT nombre, grasas\n" +
+            "FROM Alimentos\n" +
+            "ORDER BY grasas DESC;", nativeQuery = true)
+    public List<String[]> grasasByAlimentos();
+
+    @Query(value = "SELECT nombre, carbohidratos\n" +
+            "FROM Alimentos\n" +
+            "ORDER BY carbohidratos DESC;", nativeQuery = true)
+    public List<String[]> carbohidratosByAlimentos();
 }

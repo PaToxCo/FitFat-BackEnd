@@ -12,5 +12,7 @@ public interface IAlimentosService {
     void delete(int id);
     List<Alimentos> filtrarPorUsuarioId(int usuarioId);
     List<Alimentos> findAlimentosByNombreAndUsuario(String nombre, int idUsuario);
-
+    List<String[]> caloriasByAlimentos();
+    List<String[]> grasasByAlimentos();
+    List<String[]> carbohidratosByAlimentos();
 }
