@@ -3,6 +3,7 @@ package pe.edu.upc.fitfat.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.ConsultaDTO;
 import pe.edu.upc.fitfat.entities.Consulta;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/consulta")
+@PreAuthorize("hasAuthority('ADMIN')")
+
 public class ConsultaController {
     @Autowired
     private IConsultaService conS;

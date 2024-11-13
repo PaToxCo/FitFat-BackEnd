@@ -2,6 +2,8 @@ package pe.edu.upc.fitfat.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.ContarUsuariosActivosInactivosDTO;
 import pe.edu.upc.fitfat.dtos.Tipo_comidaDTO;
@@ -16,10 +18,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuarios")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UsuariosController {
 
     @Autowired
     private IUsuariosService uS;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<UsuariosDTO> listar() {
@@ -33,6 +38,8 @@ public class UsuariosController {
     public void insertar(@RequestBody UsuariosDTO dto) {
         ModelMapper m = new ModelMapper();
         Usuarios usuario = m.map(dto, Usuarios.class);
+        String encodedPassword = passwordEncoder.encode(usuario.getContrasena());
+        usuario.setContrasena(encodedPassword);
         uS.insert(usuario);
     }
 

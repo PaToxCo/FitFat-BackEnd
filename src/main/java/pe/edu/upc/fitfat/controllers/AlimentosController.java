@@ -2,6 +2,7 @@ package pe.edu.upc.fitfat.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.AlimentosDTO;
 import pe.edu.upc.fitfat.dtos.TotalAlimentosDTO;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/alimentos")
+@PreAuthorize("hasAuthority('USER')")
+
 public class AlimentosController {
 
     @Autowired

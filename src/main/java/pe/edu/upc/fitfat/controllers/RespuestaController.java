@@ -2,6 +2,7 @@ package pe.edu.upc.fitfat.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.fitfat.dtos.RespuestaDTO;
 import pe.edu.upc.fitfat.entities.Comida;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/respuesta")
+@PreAuthorize("hasAuthority('ADMIN')")
+
 public class RespuestaController {
     @Autowired
     private IRespuestaService respuestaService;
