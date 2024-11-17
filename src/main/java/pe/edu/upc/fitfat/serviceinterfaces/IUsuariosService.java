@@ -14,4 +14,4 @@ public interface IUsuariosService {
     public Usuarios findOneByUsuario(String usuario);
     public List<String[]> contarUsuariosActivosInactivos();
     public List<UsuariosPorRolDTO> obtenerUsuariosPorRol();
-    }
+}

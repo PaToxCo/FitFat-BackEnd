@@ -2,23 +2,24 @@ package pe.edu.upc.fitfat.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.fitfat.dtos.ContarUsuariosActivosInactivosDTO;
-import pe.edu.upc.fitfat.dtos.Tipo_comidaDTO;
-import pe.edu.upc.fitfat.dtos.UsuariosDTO;
-import pe.edu.upc.fitfat.dtos.UsuariosPorRolDTO;
+import pe.edu.upc.fitfat.dtos.*;
 import pe.edu.upc.fitfat.entities.Tipo_comida;
 import pe.edu.upc.fitfat.entities.Usuarios;
 import pe.edu.upc.fitfat.serviceinterfaces.IUsuariosService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuarios")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('PACIENTE') or hasAuthority('ADMIN')")
 public class UsuariosController {
 
     @Autowired
@@ -83,5 +84,14 @@ public class UsuariosController {
     @GetMapping("/usuarios-por-rol")
     public List<UsuariosPorRolDTO> obtenerUsuariosPorRol() {
         return uS.obtenerUsuariosPorRol();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDetails> getLoggedInUser() {
+        // Fetch the user details from SecurityContextHolder
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Return the user details (e.g., username, authorities, etc.)
+        return ResponseEntity.ok(userDetails);
     }
 }

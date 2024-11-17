@@ -57,4 +57,5 @@ public class UsuariosServiceImplement implements IUsuariosService {
     public List<UsuariosPorRolDTO> obtenerUsuariosPorRol() {
         return uR.contarUsuariosPorRol();
     }
+
 }
