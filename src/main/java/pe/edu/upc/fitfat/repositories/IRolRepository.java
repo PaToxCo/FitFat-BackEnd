@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface IRolRepository extends JpaRepository<Rol, Integer> {
-    @Query(value = "SELECT r.descripcion,  u.nombre\n" +
+    @Query(value = "SELECT r.descripcion,  u.id_usuario\n" +
             "FROM Rol r\n" +
             "JOIN Usuarios u ON r.id_usuario = u.id_usuario\n" +
             "WHERE u.enabled = 'true';", nativeQuery = true)

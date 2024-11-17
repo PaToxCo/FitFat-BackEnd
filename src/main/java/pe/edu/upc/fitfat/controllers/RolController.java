@@ -60,7 +60,7 @@ public class RolController {
         return listarolesactivos.stream().map(y -> {
             RolesActivosDTO dto = new RolesActivosDTO();
             dto.setDescripcion(y[0]);
-            dto.setNombre(y[1]);
+            dto.setIdRol(Integer.parseInt(y[1]));
             return dto;
         }).collect(Collectors.toList());
     }

@@ -3,23 +3,23 @@ package pe.edu.upc.fitfat.dtos;
 import pe.edu.upc.fitfat.entities.Usuarios;
 
 public class RolDTO {
-    private long idRol;
+    private Integer idRol;
     private String descripcion;
     private Usuarios usuario;
 
-    public long getIdRol() {
+    public Integer getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(long idRol) {
+    public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
 
-    public String getdescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setdescripcion(String descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 

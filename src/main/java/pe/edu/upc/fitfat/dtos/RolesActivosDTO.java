@@ -1,8 +1,8 @@
 package pe.edu.upc.fitfat.dtos;
 
 public class RolesActivosDTO {
-    String descripcion;
-    String nombre;
+    private String descripcion;
+    private Integer idRol;
 
     public String getDescripcion() {
         return descripcion;
@@ -12,11 +12,11 @@ public class RolesActivosDTO {
         this.descripcion = descripcion;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getIdRol() {
+        return idRol;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
     }
 }
